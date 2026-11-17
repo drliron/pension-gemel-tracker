@@ -1,0 +1,64 @@
+[
+  {
+    "track_key": "9101-01",
+    "cma_fund_code": "9101",
+    "cma_track_code": "01",
+    "fund_name": "פנסיה דמו א'",
+    "track_name": "מסלול כללי לבני 50 ומטה",
+    "product_type": "pension",
+    "age_group": "up_to_50",
+    "aliases": [
+      "פנסיה דמו א' - כללי 50-"
+    ]
+  },
+  {
+    "track_key": "9101-02",
+    "cma_fund_code": "9101",
+    "cma_track_code": "02",
+    "fund_name": "פנסיה דמו א'",
+    "track_name": "מסלול מניות לבני 50 ומטה",
+    "product_type": "pension",
+    "age_group": "up_to_50",
+    "aliases": []
+  },
+  {
+    "track_key": "9102-01",
+    "cma_fund_code": "9102",
+    "cma_track_code": "01",
+    "fund_name": "פנסיה דמו ב'",
+    "track_name": "מסלול כללי לבני 50 ומטה",
+    "product_type": "pension",
+    "age_group": "up_to_50",
+    "aliases": []
+  },
+  {
+    "track_key": "9201-01",
+    "cma_fund_code": "9201",
+    "cma_track_code": "01",
+    "fund_name": "גמל להשקעה דמו א'",
+    "track_name": "מסלול כללי",
+    "product_type": "gemel_invest",
+    "age_group": "unknown",
+    "aliases": []
+  },
+  {
+    "track_key": "9201-02",
+    "cma_fund_code": "9201",
+    "cma_track_code": "02",
+    "fund_name": "גמל להשקעה דמו א'",
+    "track_name": "מסלול S&P 500",
+    "product_type": "gemel_invest",
+    "age_group": "unknown",
+    "aliases": []
+  },
+  {
+    "track_key": "9202-01",
+    "cma_fund_code": "9202",
+    "cma_track_code": "01",
+    "fund_name": "גמל להשקעה דמו ב'",
+    "track_name": "מסלול כללי",
+    "product_type": "gemel_invest",
+    "age_group": "unknown",
+    "aliases": []
+  }
+]

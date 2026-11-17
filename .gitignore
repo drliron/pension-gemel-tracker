@@ -1,0 +1,29 @@
+# ---- נתונים אישיים: לעולם לא לגיט ----
+data/portfolio.sqlite*
+data/raw/
+data/uploads/
+data/*.sqlite
+data/*.db
+*.sqlite
+*.sqlite-*
+*.db
+*.pdf
+*.zip
+# דוחות שנשמרו בטעות תחת שמות אחרים
+**/statements/
+**/reports/
+
+# ---- סודות ----
+.env
+.env.*
+!.env.example
+
+# ---- תוצרי בנייה וכלי פיתוח ----
+node_modules/
+web/dist/
+__pycache__/
+.pytest_cache/
+*.pyc
+.DS_Store
+.vscode/
+.idea/

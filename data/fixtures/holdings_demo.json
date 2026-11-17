@@ -1,0 +1,135 @@
+{
+  "_about": "נתוני דמה. קופות בדויות. אין כאן מזהים אישיים.",
+  "holdings": [
+    {
+      "holding_id": "11111111-1111-4111-8111-000000000001",
+      "track_key": "9101-02",
+      "status": "active",
+      "opened_on": "2019-03-01",
+      "closed_on": null,
+      "label": "פנסיה מהעבודה הנוכחית"
+    },
+    {
+      "holding_id": "11111111-1111-4111-8111-000000000002",
+      "track_key": "9201-02",
+      "status": "active",
+      "opened_on": "2021-01-15",
+      "closed_on": null,
+      "label": "גמל להשקעה"
+    },
+    {
+      "holding_id": "11111111-1111-4111-8111-000000000003",
+      "track_key": "9102-01",
+      "status": "closed",
+      "opened_on": "2012-05-01",
+      "closed_on": "2024-03-31",
+      "label": "פנסיה ישנה (נסגרה)"
+    }
+  ],
+  "statements": [
+    {
+      "statement_id": "51556d51-d58c-5a5d-8fac-f5f3ab27f91a",
+      "holding_id": "11111111-1111-4111-8111-000000000001",
+      "as_of": "2024-12-31",
+      "balance_ils": 210000,
+      "deposits_ytd_ils": 25200,
+      "monthly_deposit_ils": 2100,
+      "fee_deposit_pct": 0.5,
+      "fee_accum_pct": 0.12,
+      "reported_track_name": "פנסיה דמו א' מסלול כללי לבני 50 ומטה",
+      "matched_track_key": "9101-01",
+      "source_sha256": "8fa327ac32e1c85c53232f3d42e48b98e7ef448f3ac7a702d693fcec5a864bca"
+    },
+    {
+      "statement_id": "8e646176-0160-55e9-8f88-0815942fadce",
+      "holding_id": "11111111-1111-4111-8111-000000000001",
+      "as_of": "2025-06-30",
+      "balance_ils": 232000,
+      "deposits_ytd_ils": 12600,
+      "monthly_deposit_ils": 2100,
+      "fee_deposit_pct": 0.5,
+      "fee_accum_pct": 0.12,
+      "reported_track_name": "פנסיה דמו א' מסלול כללי לבני 50 ומטה",
+      "matched_track_key": "9101-01",
+      "source_sha256": "8b38bbddad5570d4de3322a0ca1cdc0a544f6ae3474f723040343ff285218df8"
+    },
+    {
+      "statement_id": "4d77dfa7-c756-5e26-ba74-90a3788b77be",
+      "holding_id": "11111111-1111-4111-8111-000000000001",
+      "as_of": "2025-12-31",
+      "balance_ils": 255000,
+      "deposits_ytd_ils": 25200,
+      "monthly_deposit_ils": 2100,
+      "fee_deposit_pct": 0.5,
+      "fee_accum_pct": 0.28,
+      "reported_track_name": "פנסיה דמו א' מסלול מניות לבני 50 ומטה",
+      "matched_track_key": "9101-02",
+      "source_sha256": "3cbf303ac56fc22509279d588c6802542e2b542e136ac605f8300ae6f016232c"
+    },
+    {
+      "statement_id": "cccd4dbf-251a-565f-a630-083301898496",
+      "holding_id": "11111111-1111-4111-8111-000000000001",
+      "as_of": "2026-06-30",
+      "balance_ils": 281000,
+      "deposits_ytd_ils": 12600,
+      "monthly_deposit_ils": 2100,
+      "fee_deposit_pct": 0.5,
+      "fee_accum_pct": 0.28,
+      "reported_track_name": "פנסיה דמו א' מסלול מניות לבני 50 ומטה",
+      "matched_track_key": "9101-02",
+      "source_sha256": "e0684a8218df5639047337b3cf25550f87b3b79f04969c6b33aba19bbc0200b1"
+    },
+    {
+      "statement_id": "25364d28-dcc1-53e5-bbab-c59a13252a25",
+      "holding_id": "11111111-1111-4111-8111-000000000002",
+      "as_of": "2025-06-30",
+      "balance_ils": 118000,
+      "deposits_ytd_ils": 4800,
+      "monthly_deposit_ils": 800,
+      "fee_deposit_pct": 0.0,
+      "fee_accum_pct": 0.18,
+      "reported_track_name": "גמל להשקעה דמו א' מסלול כללי",
+      "matched_track_key": "9201-01",
+      "source_sha256": "0eb4edb2ec026373b279f414e56a2a583e5401111a68bb9f6c085a962b3877db"
+    },
+    {
+      "statement_id": "ea17d36a-7c93-5017-9734-ac58b6963f8c",
+      "holding_id": "11111111-1111-4111-8111-000000000002",
+      "as_of": "2025-12-31",
+      "balance_ils": 124000,
+      "deposits_ytd_ils": 9600,
+      "monthly_deposit_ils": 800,
+      "fee_deposit_pct": 0.0,
+      "fee_accum_pct": 0.18,
+      "reported_track_name": "גמל להשקעה דמו א' מסלול כללי",
+      "matched_track_key": "9201-01",
+      "source_sha256": "cbcd58cfaebc6e4e7ef5941bcbe1bb661f3baf43831a352caa0d2042be2589ca"
+    },
+    {
+      "statement_id": "01bf3ed3-c048-5ae3-87c6-808e541a14b1",
+      "holding_id": "11111111-1111-4111-8111-000000000002",
+      "as_of": "2026-06-30",
+      "balance_ils": 131500,
+      "deposits_ytd_ils": 4800,
+      "monthly_deposit_ils": 800,
+      "fee_deposit_pct": 0.0,
+      "fee_accum_pct": 0.35,
+      "reported_track_name": "גמל להשקעה דמו א' מסלול S&P 500",
+      "matched_track_key": "9201-02",
+      "source_sha256": "1dbb4efd1290e355f8ae994c20ccf6d5bcb5e78c41e4d462c17c34a50d14cd8b"
+    },
+    {
+      "statement_id": "f2a9aef1-ca3c-589b-a376-632fec818573",
+      "holding_id": "11111111-1111-4111-8111-000000000003",
+      "as_of": "2023-12-31",
+      "balance_ils": 60000,
+      "deposits_ytd_ils": 0,
+      "monthly_deposit_ils": 0,
+      "fee_deposit_pct": 0.7,
+      "fee_accum_pct": 0.22,
+      "reported_track_name": "פנסיה דמו ב' מסלול כללי לבני 50 ומטה",
+      "matched_track_key": "9102-01",
+      "source_sha256": "12141fa1b9232f38b1716cc52b27c91bbdc1e29aab5b247167269bd14b2c3157"
+    }
+  ]
+}

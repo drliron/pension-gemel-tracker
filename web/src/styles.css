@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* פונטים מקומיים בלבד: אין בקשות לשרתי גופנים חיצוניים */
+body {
+  font-family: Heebo, Rubik, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}

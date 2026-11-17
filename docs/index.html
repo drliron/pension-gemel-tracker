@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ניהול תיק פנסיה וגמל · מדריך</title>
+  <meta name="description" content="מערכת מקומית למעקב אחר תיק פנסיה וקופות גמל: קליטת דוחות, מעברי מסלול, השוואה וסימולציה. הנתונים נשארים במחשב שלך." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: Arial, "Segoe UI", sans-serif; }
+    details summary { list-style: none; cursor: pointer; }
+    details summary::-webkit-details-marker { display: none; }
+    details[open] .chev { transform: rotate(180deg); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+  <!-- Hero -->
+  <header class="bg-gradient-to-br from-emerald-700 to-teal-900 text-white">
+    <div class="mx-auto max-w-5xl px-6 py-16">
+      <p class="text-sm font-medium text-emerald-200">Open Source · Local-First · MIT</p>
+      <h1 class="mt-3 text-4xl font-extrabold leading-tight md:text-5xl">ניהול תיק פנסיה וגמל, על המחשב שלך</h1>
+      <p class="mt-5 max-w-2xl text-lg text-emerald-50">
+        מעקב אחר הפנסיה וקופות הגמל להשקעה: קליטת דוחות, זיהוי מעברי מסלול על ציר הזמן, יתרה משוערכת להיום עם טווח,
+        והשוואה למסלולים באותה קטגוריה עם סימולטור "מה אם?". הכול רץ מקומית, ו-ת"ז ומספרי חשבון נמחקים לפני כל עיבוד.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="https://github.com/drliron/pension-gemel-tracker" target="_blank" rel="noopener"
+           class="rounded-lg bg-white px-5 py-3 font-semibold text-emerald-900 shadow hover:bg-emerald-50">
+          לקוד ב-GitHub
+        </a>
+        <a href="#prompts" class="rounded-lg border border-white/40 px-5 py-3 font-semibold text-white hover:bg-white/10">
+          פרומפטים להתחלה מהירה
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-5xl space-y-16 px-6 py-14">
+
+    <!-- Flow -->
+    <section aria-labelledby="flow">
+      <h2 id="flow" class="text-2xl font-bold">איך זה עובד: ארבעה שלבים</h2>
+      <ol class="mt-8 grid gap-4 md:grid-cols-4">
+        <li class="relative rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-600 font-bold text-white">1</span>
+          <h3 class="mt-3 font-semibold">הורדת דוחות</h3>
+          <p class="mt-1 text-sm text-slate-600">מעלים PDF, CSV או TXT של דוח תקופתי, או מזינים ידנית.</p>
+        </li>
+        <li class="relative rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-600 font-bold text-white">2</span>
+          <h3 class="mt-3 font-semibold">מחיקת מזהים מקומית</h3>
+          <p class="mt-1 text-sm text-slate-600">ת"ז, חשבונות ושמות נמחקים לפני שהטקסט נבדק. אתה מאשר את השדות לפני שמירה.</p>
+        </li>
+        <li class="relative rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-600 font-bold text-white">3</span>
+          <h3 class="mt-3 font-semibold">סנכרון נתוני שוק</h3>
+          <p class="mt-1 text-sm text-slate-600">תשואות חודשיות ממקור רשמי, או ייבוא ידני. בלי הגדרה מפורשת אין פנייה לאינטרנט.</p>
+        </li>
+        <li class="relative rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-600 font-bold text-white">4</span>
+          <h3 class="mt-3 font-semibold">דשבורד והשוואה</h3>
+          <p class="mt-1 text-sm text-slate-600">יתרה מדווחת מול משוערכת, חשיפות, ציר זמן עם מעברים, והשוואה למסלולים.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Prompts -->
+    <section id="prompts" aria-labelledby="prompts-title">
+      <h2 id="prompts-title" class="text-2xl font-bold">פרומפטים להעתקה</h2>
+      <p class="mt-2 text-slate-600">העתק את הפרומפט והדבק אותו בסוכן AI (Claude Code, Codex או דומה), בתוך תיקיית הריפו.</p>
+
+      <div class="mt-8 grid gap-6">
+        <!-- Card 1 -->
+        <article class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h3 class="font-semibold">1. התקנה והרצה ראשונית</h3>
+              <p class="text-sm text-slate-600">מתקין, מריץ את הבדיקות ומעלה את השרת עם נתוני דמה.</p>
+            </div>
+            <button type="button" data-copy="p1"
+                    class="shrink-0 rounded-lg bg-slate-800 px-3 py-2 text-sm text-white hover:bg-slate-700">העתק פרומפט</button>
+          </div>
+          <pre id="p1" class="mt-4 whitespace-pre-wrap rounded-lg bg-slate-900 p-4 text-sm leading-7 text-slate-100" dir="rtl">שכפל את הריפו https://github.com/drliron/pension-gemel-tracker לתיקייה pension-gemel-tracker.
+קרא את SKILL.md ופעל לפיו:
+1. בתיקייה worker התקן את התלויות: pip install -r requirements.txt
+2. הרץ את הבדיקות: python3 -m pytest -q tests. צריך לעבור 40 טסטים.
+3. הפעל את השרת עם נתוני דמה: python3 -m app.server --seed
+4. דווח לי מה עבר ומה נכשל, בשורה אחת לכל דבר.
+אל תשנה קבצים בתיקיית data/fixtures, ואל תגדיר שליפה מהאינטרנט.</pre>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h3 class="font-semibold">2. קליטת דוח וניתוח מעברי מסלול</h3>
+              <p class="text-sm text-slate-600">קולט דוח, מאשר אותו איתך, ומציג את מעברי המסלול שזוהו.</p>
+            </div>
+            <button type="button" data-copy="p2"
+                    class="shrink-0 rounded-lg bg-slate-800 px-3 py-2 text-sm text-white hover:bg-slate-700">העתק פרומפט</button>
+          </div>
+          <pre id="p2" class="mt-4 whitespace-pre-wrap rounded-lg bg-slate-900 p-4 text-sm leading-7 text-slate-100" dir="rtl">קרא את SKILL.md. אני רוצה לקלוט דוח פנסיה או גמל חדש.
+1. ודא שיש אחזקה מתאימה, ואם לא, צור אחת לפי המסלול מהקטלוג.
+2. שלח את הקובץ לנקודת ה-draft. מחיקת המזהים מתבצעת לפני כל עיבוד.
+3. הצג לי רק את השדות שחולצו, את רמת הביטחון, מספר המחיקות והטקסט הנקי. אל תציג את הקובץ הגולמי.
+4. אל תשמור דבר לפני שאאשר. לאחר אישורי שמור דרך confirm.
+5. סכם את מעברי המסלול שזוהו על ציר הזמן, וציין שהתאריכים מוערכים.</pre>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h3 class="font-semibold">3. השוואת מסלולים וסימולציית "מה אם?"</h3>
+              <p class="text-sm text-slate-600">משווה את המסלול שלך לקבוצה, ובודק השפעת מעבר מסלול על האופק שתבחר.</p>
+            </div>
+            <button type="button" data-copy="p3"
+                    class="shrink-0 rounded-lg bg-slate-800 px-3 py-2 text-sm text-white hover:bg-slate-700">העתק פרומפט</button>
+          </div>
+          <pre id="p3" class="mt-4 whitespace-pre-wrap rounded-lg bg-slate-900 p-4 text-sm leading-7 text-slate-100" dir="rtl">קרא את SKILL.md. עבור האחזקה שאבחר:
+1. הרץ את benchmark והצג את מיקום המסלול שלי מתוך הקבוצה, לפי תשואה ב-12 חודשים ודמי ניהול מצבירה.
+2. הרץ את whatif עם חלון של 36 חודשים, אופק של 10 שנים, ושינוי בדמי הניהול של המסלול החלופי שאבחר.
+3. סכם את ההפרש בסוף האופק.
+4. ציין שהסימולציה מבוססת על תשואות עבר בלבד ואינה ייעוץ השקעות.</pre>
+        </article>
+      </div>
+    </section>
+
+    <!-- Privacy -->
+    <section aria-labelledby="privacy">
+      <h2 id="privacy" class="text-2xl font-bold">התחייבות פרטיות</h2>
+      <div class="mt-6 grid gap-4 md:grid-cols-2">
+        <div class="rounded-xl border border-emerald-200 bg-emerald-50 p-5">
+          <h3 class="font-semibold text-emerald-900">מה נשאר במחשב</h3>
+          <ul class="mt-2 list-disc space-y-1 pr-5 text-sm text-emerald-950">
+            <li>הדוחות עצמם. הקובץ המקורי לא נשמר, רק טביעת אצבע שלו.</li>
+            <li>היתרות, ההפקדות והאחזקות, במסד SQLite מקומי.</li>
+            <li>ת"ז, מספרי חשבון ושמות. הם נמחקים לפני כל עיבוד.</li>
+          </ul>
+        </div>
+        <div class="rounded-xl border border-slate-200 bg-white p-5">
+          <h3 class="font-semibold">מה יוצא מהמחשב</h3>
+          <ul class="mt-2 list-disc space-y-1 pr-5 text-sm text-slate-700">
+            <li>כברירת מחדל: כלום. השרת קושר ל-127.0.0.1 בלבד.</li>
+            <li>שליפה ממקור רשמי מופעלת רק לאחר הגדרה ידנית. הבקשה מכילה קודי קופה ומסלול ציבוריים בלבד.</li>
+            <li>הריפו לא כולל נתונים אישיים. הדמו אנונימי.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section aria-labelledby="faq">
+      <h2 id="faq" class="text-2xl font-bold">שאלות נפוצות</h2>
+      <div class="mt-6 divide-y divide-slate-200 rounded-xl border border-slate-200 bg-white">
+        <details class="group p-5">
+          <summary class="flex items-center justify-between font-semibold">
+            האם זו המלצה להשקעה?
+            <span class="chev text-slate-400 transition-transform">▼</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600">לא. המערכת מציגה הערכות ותשואות עבר לצורך מעקב. הציון "בריאות התיק" הוא כלל אצבע שקוף, והסימולטור אינו מבטיח תשואה עתידית. לשיקולי מס או השקעה, פנה לאיש מקצוע.</p>
+        </details>
+        <details class="group p-5">
+          <summary class="flex items-center justify-between font-semibold">
+            מה ההבדל בין יתרה מדווחת ליתרה משוערכת?
+            <span class="chev text-slate-400 transition-transform">▼</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600">המדווחת היא היתרה בדוח שאישרת. המשוערכת היא הערכה מאז תאריך הדוח, לפי הפקדות חודשיות ותשואות החודשיות של המסלול. המערכת מציגה טווח, תאריך נתונים, ואת הנחות החישוב.</p>
+        </details>
+        <details class="group p-5">
+          <summary class="flex items-center justify-between font-semibold">
+            האם הדוח שלי ייתמך?
+            <span class="chev text-slate-400 transition-transform">▼</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600">בשלב זה יש תבניות גנריות בלבד. לכל מוסד אמיתי צריך תבנית ייעודית, שנכתבת אחרי דוגמה מאומתת. דוח שלא זוהה מוצג עם אזהרה, ואפשר להזין אותו ידנית.</p>
+        </details>
+        <details class="group p-5">
+          <summary class="flex items-center justify-between font-semibold">
+            מה קורה אם המקור הרשמי לא זמין?
+            <span class="chev text-slate-400 transition-transform">▼</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600">המערכת משתמשת במטמון מקומי ומסמנת אותו כלא עדכני, עם התאריך שבו נשלף. אפשר גם לייבא CSV ידנית.</p>
+        </details>
+        <details class="group p-5">
+          <summary class="flex items-center justify-between font-semibold">
+            מה צריך כדי להריץ?
+            <span class="chev text-slate-400 transition-transform">▼</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600">Python 3.11 ומעלה לשרת, ו-Node.js 20 ומעלה לממשק. ההוראות המלאות נמצאות ב-README בריפו.</p>
+        </details>
+        <details class="group p-5">
+          <summary class="flex items-center justify-between font-semibold">
+            מה המצב של הממשק?
+            <span class="chev text-slate-400 transition-transform">▼</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600">השרת נבדק עם 40 טסטים והרצה חיה. הממשק טרם נבנה ונבדק בסביבה חיה, ולכן צריך להריץ <code dir="ltr">npm run build</code> ולוודא שהוא עולה.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white">
+    <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-6 py-6 text-sm text-slate-500">
+      <span>רישיון MIT · הכלי אינו ייעוץ השקעות או מס</span>
+      <a class="text-emerald-700 hover:underline" href="https://github.com/drliron/pension-gemel-tracker" target="_blank" rel="noopener">github.com/drliron/pension-gemel-tracker</a>
+    </div>
+  </footer>
+
+  <script>
+    // העתקת פרומפט עם משוב ויזואלי. נכשל בשקט אם הדפדפן לא מאפשר גישה ללוח.
+    document.querySelectorAll('[data-copy]').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const text = document.getElementById(btn.dataset.copy).innerText;
+        try {
+          await navigator.clipboard.writeText(text);
+          const original = btn.textContent;
+          btn.textContent = 'הועתק! ✓';
+          btn.classList.replace('bg-slate-800', 'bg-emerald-600');
+          setTimeout(() => {
+            btn.textContent = original;
+            btn.classList.replace('bg-emerald-600', 'bg-slate-800');
+          }, 2000);
+        } catch (e) {
+          btn.textContent = 'לא הצלחנו להעתיק';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

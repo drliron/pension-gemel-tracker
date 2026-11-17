@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pension-portfolio.schema.json",
+  "title": "PensionPortfolio",
+  "description": "חוזה הנתונים בין הצנרת, מסד ה-SQLite וה-Frontend. כל ישות מתאימה לטבלה או לתשובת API. אסור לשמור כאן ת\"ז, שם מלא או מספר חשבון.",
+  "$defs": {
+    "FundTrack": {
+      "type": "object",
+      "required": ["track_key", "cma_fund_code", "cma_track_code", "fund_name", "track_name", "product_type"],
+      "properties": {
+        "track_key": { "type": "string", "pattern": "^[0-9]{4,6}-[0-9]{2}$", "description": "`{cma_fund_code}-{cma_track_code}`" },
+        "cma_fund_code": { "type": "string", "pattern": "^[0-9]{3,6}$", "description": "מספר קופה באוצר" },
+        "cma_track_code": { "type": "string", "pattern": "^[0-9]{1,4}$" },
+        "fund_name": { "type": "string", "minLength": 1 },
+        "track_name": { "type": "string", "minLength": 1 },
+        "product_type": { "enum": ["pension", "gemel_invest", "hishtalmut", "insurance_savings"] },
+        "age_group": { "enum": ["up_to_50", "over_50", "unknown"], "default": "unknown" },
+        "aliases": { "type": "array", "items": { "type": "string" }, "description": "שמות כפי שמופיעים בדוחות, לשיוך אוטומטי" },
+        "is_fixture": { "type": "boolean", "default": false, "description": "true לנתוני דמה בלבד" }
+      },
+      "additionalProperties": false
+    },
+    "Holding": {
+      "type": "object",
+      "required": ["holding_id", "track_key", "status"],
+      "properties": {
+        "holding_id": { "type": "string", "format": "uuid" },
+        "track_key": { "type": "string" },
+        "status": { "enum": ["active", "closed"] },
+        "opened_on": { "type": ["string", "null"], "format": "date" },
+        "closed_on": { "type": ["string", "null"], "format": "date" },
+        "label": { "type": "string", "description": "שם תצוגה חופשי, לא מזהה אישי" }
+      },
+      "additionalProperties": false
+    },
+    "Statement": {
+      "type": "object",
+      "description": "דוח מאושר בלבד. טיוטה לא נשמרת. user_confirmed הוא תמיד true במסד.",
+      "required": ["statement_id", "holding_id", "as_of", "balance_ils", "source_sha256", "parser_name", "parser_version", "parser_confidence", "user_confirmed"],
+      "properties": {
+        "statement_id": { "type": "string", "format": "uuid" },
+        "holding_id": { "type": "string", "format": "uuid" },
+        "as_of": { "type": "string", "format": "date" },
+        "balance_ils": { "type": "number" },
+        "deposits_ytd_ils": { "type": ["number", "null"] },
+        "monthly_deposit_ils": { "type": ["number", "null"] },
+        "fee_deposit_pct": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+        "fee_accum_pct": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+        "reported_track_name": { "type": "string" },
+        "matched_track_key": { "type": ["string", "null"] },
+        "source_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$|^manual$|^demo" },
+        "parser_name": { "type": "string" },
+        "parser_version": { "type": "string" },
+        "parser_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "redactions": {
+          "type": "object",
+          "properties": { "id": { "type": "integer", "minimum": 0 }, "account": { "type": "integer", "minimum": 0 }, "name": { "type": "integer", "minimum": 0 } }
+        },
+        "user_confirmed": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "Transition": {
+      "type": "object",
+      "description": "מעבר בין מסלולים באותה אחזקה. מחושב מדוחות מאושרים בלבד.",
+      "required": ["holding_id", "from_track_key", "to_track_key", "effective_on", "evidence_statement_ids"],
+      "properties": {
+        "holding_id": { "type": "string", "format": "uuid" },
+        "from_track_key": { "type": "string" },
+        "to_track_key": { "type": "string" },
+        "effective_on": { "type": "string", "format": "date" },
+        "evidence_statement_ids": { "type": "array", "items": { "type": "string", "format": "uuid" }, "minItems": 2, "maxItems": 2 },
+        "approximate": { "const": true, "description": "התאריך הוא דוח ראשון שמראה את המסלול החדש, לא תאריך המעבר בפועל" }
+      }
+    },
+    "MarketPoint": {
+      "type": "object",
+      "description": "נתון חודשי של מסלול. מיובא ממקור רשמי או מייבוא ידני.",
+      "required": ["track_key", "period", "monthly_return_pct", "source_id"],
+      "properties": {
+        "track_key": { "type": "string" },
+        "period": { "type": "string", "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$" },
+        "source_id": { "type": "string" },
+        "monthly_return_pct": { "type": "number", "minimum": -100, "maximum": 100 },
+        "ytd_return_pct": { "type": ["number", "null"] },
+        "return_12m_pct": { "type": ["number", "null"] },
+        "return_3y_pct": { "type": ["number", "null"] },
+        "return_5y_pct": { "type": ["number", "null"] },
+        "sharpe_5y": { "type": ["number", "null"] },
+        "fee_deposit_pct": { "type": ["number", "null"] },
+        "fee_accum_pct": { "type": ["number", "null"] },
+        "assets_ils_k": { "type": ["number", "null"] },
+        "asset_mix": {
+          "type": "object",
+          "properties": {
+            "israel_equity_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+            "foreign_equity_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+            "bonds_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+            "fx_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+            "other_pct": { "type": "number", "minimum": 0, "maximum": 100 }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "Source": {
+      "type": "object",
+      "required": ["source_id", "kind", "automation_allowed"],
+      "properties": {
+        "source_id": { "type": "string" },
+        "kind": { "enum": ["official_file", "official_api", "aggregator", "manual_import"] },
+        "base_url": { "type": "string" },
+        "automation_allowed": { "type": "boolean" },
+        "terms_reviewed_on": { "type": ["string", "null"], "format": "date", "description": "בלי תאריך אין שליפה אוטומטית" },
+        "min_seconds_between_requests": { "type": "integer", "minimum": 1 },
+        "ttl_hours": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "LiveEstimate": {
+      "type": "object",
+      "description": "הערכה בלבד. תמיד מוצגת לצד היתרה המדווחת, ועם data_through ו-assumptions.",
+      "required": ["statement_id", "base_balance_ils", "estimated_balance_ils", "low_ils", "high_ils", "data_through", "method", "assumptions"],
+      "properties": {
+        "statement_id": { "type": "string" },
+        "base_balance_ils": { "type": "number" },
+        "estimated_balance_ils": { "type": "number" },
+        "low_ils": { "type": "number" },
+        "high_ils": { "type": "number" },
+        "data_through": { "type": "string", "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$" },
+        "method": { "const": "return_compounding_v1" },
+        "assumptions": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+      }
+    }
+  }
+}

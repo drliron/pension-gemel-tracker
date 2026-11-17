@@ -1,0 +1,22 @@
+[
+  {
+    "source_id": "manual_import",
+    "kind": "manual_import",
+    "automation_allowed": false,
+    "terms_reviewed_on": null,
+    "ttl_hours": 0,
+    "note": "ייבוא ידני של CSV/JSON. תמיד זמין כגיבוי."
+  },
+  {
+    "source_id": "gemelnet_official",
+    "kind": "official_file",
+    "base_url": "https://data.gov.il",
+    "automation_allowed": true,
+    "terms_reviewed_on": null,
+    "min_seconds_between_requests": 3600,
+    "ttl_hours": 24,
+    "url": null,
+    "column_map": null,
+    "note": "TODO: להזין URL של קובץ התשואות החודשיות ומיפוי עמודות אחרי אימות ה-dataset ב-data.gov.il, ולהגדיר terms_reviewed_on לאחר בדיקת תנאי השימוש."
+  }
+]
